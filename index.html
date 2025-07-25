@@ -93,6 +93,118 @@
             margin-top: 3rem;
         }
 
+        .show-more-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .show-more-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+            opacity: 0;
+        }
+
+        .hidden-content.show {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 1rem;
+        }
+
+        .contact-form-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .contact-form-section h3 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .thank-you-message {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .thank-you-message h3 {
+            color: #155724;
+            margin-bottom: 0.5rem;
+        }
+
+        .thank-you-message p {
+            color: #155724;
+            margin: 0;
+        }
+
+        .hidden {
+            display: none;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -123,6 +235,14 @@
                 <h2>About Me</h2>
                 <p>Hello! I'm Sean.R.M, and I'm passionate about creating meaningful digital experiences. This is my personal space on the web where I share my thoughts, projects, and connect with others.</p>
                 <p>I believe in the power of technology to solve problems and bring people together. Whether it's through code, design, or collaboration, I'm always looking for ways to make a positive impact.</p>
+                
+                <div id="additional-content" class="hidden-content">
+                    <p>My journey into web development began with curiosity and has evolved into a passion for crafting digital experiences. I started by learning HTML and CSS, fascinated by how simple code could transform into beautiful, interactive websites.</p>
+                    <p>As I delved deeper, I discovered JavaScript and the power it brings to make websites truly interactive. Each project taught me something new - from responsive design principles to modern frameworks and best practices.</p>
+                    <p>What excites me most about web development is the constant evolution of the field. There's always something new to learn, whether it's a cutting-edge framework, accessibility improvements, or performance optimization techniques. This continuous learning keeps me engaged and motivated to grow as a developer.</p>
+                </div>
+                
+                <button id="show-more-btn" class="show-more-button">Show More</button>
             </section>
 
             <section id="contact">
@@ -138,6 +258,29 @@
                         github.com/seangithubusename
                     </div>
                 </div>
+                
+                <div class="contact-form-section">
+                    <h3>Send me a message</h3>
+                    <form id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                    <div id="thank-you-message" class="thank-you-message hidden">
+                        <h3>Thank you!</h3>
+                        <p>Your message has been received. I'll get back to you soon!</p>
+                    </div>
+                </div>
             </section>
         </div>
     </main>
@@ -147,5 +290,40 @@
             <p>&copy; 2025 Sean.R.M. All rights reserved.</p>
         </div>
     </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const showMoreBtn = document.getElementById('show-more-btn');
+            const additionalContent = document.getElementById('additional-content');
+            
+            showMoreBtn.addEventListener('click', function() {
+                if (additionalContent.classList.contains('show')) {
+                    additionalContent.classList.remove('show');
+                    showMoreBtn.textContent = 'Show More';
+                } else {
+                    additionalContent.classList.add('show');
+                    showMoreBtn.textContent = 'Show Less';
+                }
+            });
+            
+            // Contact form functionality
+            const contactForm = document.getElementById('contact-form');
+            const thankYouMessage = document.getElementById('thank-you-message');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Hide the form and show thank you message
+                contactForm.style.display = 'none';
+                thankYouMessage.classList.remove('hidden');
+                
+                // Optional: Reset form and show it again after 5 seconds
+                setTimeout(function() {
+                    contactForm.reset();
+                    contactForm.style.display = 'block';
+                    thankYouMessage.classList.add('hidden');
+                }, 5000);
+            });
+        });
+    </script>
 </body>
 </html>
